@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 import loginImage from '../../public/login_register.jpg'
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 interface FormData {
   email: string;
@@ -10,6 +10,7 @@ interface FormData {
 }
 
 const Login = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: ""
@@ -31,7 +32,15 @@ const Login = () => {
 
     try{
       const response = await axios.post("http://localhost:5003/api/auth/login", formData);
+
+      console.log(response.data.token)
+
+      localStorage.setItem("token", response.data.token);
+
       setMessage("Login Successfull")
+      alert("login successfull")
+      setTimeout(()=>{navigate('/home')})
+
     }catch(err:any){
       setError(err.response?.data?.message || "Invalid credentials");
     }

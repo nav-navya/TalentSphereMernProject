@@ -43,7 +43,7 @@ const Register = () => {
     return true;
   };
 
-  // Handle form submission
+  
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(""); // Reset error, success message

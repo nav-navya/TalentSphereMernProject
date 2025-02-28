@@ -21,11 +21,11 @@ const projectSchema = new mongoose.Schema({
   },
   skills:{
     type:String,
-    required:true,
+    
   },
   image:{
     type:String,
-    required:true,
+    
   },
   clientId: {  // Fixed the typo here (cliendId -> clientId)
     type: mongoose.Schema.Types.ObjectId,

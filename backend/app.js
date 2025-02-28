@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import authRoutes from './routes/authRoutes.js'
 import projectRoute from './routes/projectRoute.js'
+import userProfileRoute from './routes/userProfileRoute.js'
 
 
 dotenv.config();
@@ -20,5 +21,6 @@ app.get("/",(req,res)=>{
 //routes
 app.use(`/api/auth`,authRoutes)
 app.use('/api/project',projectRoute)
+app.use('/api/userProfile',userProfileRoute)
 
 export default app;

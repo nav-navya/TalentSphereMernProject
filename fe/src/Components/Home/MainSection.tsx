@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 
 const MainSection = () => {
@@ -16,9 +17,11 @@ const MainSection = () => {
       
 
       <div className='absolute bottom-0 w-full flex flex-row justify-around'>
+        <Link to='/createProject'>
         <button className="w-76 h-16 bg-white border-1 border-gray-400 text-black py-4 px-4 rounded-2xl hover:bg-gray-100 transform translate-y-1/2">
           Post a project brief
         </button>
+        </Link>
         <button className="w-76 h-16 bg-white border-1 border-gray-400 text-black py-4 px-4 rounded-2xl hover:bg-gray-100 transform translate-y-1/2">
           Start Messaging
         </button>

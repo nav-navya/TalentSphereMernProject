@@ -16,6 +16,12 @@ const userSchema = new mongoose.Schema({
     type:String,
     required:true,
   },
+  role:{
+    type:String,
+  },
+  skills:{
+    type:String
+  },
   profilePic:{
     type:String,
     default: "https://i.ibb.co/4pDNDk1/default-avatar.png"
