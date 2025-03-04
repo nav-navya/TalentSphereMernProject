@@ -16,10 +16,25 @@ const userSchema = new mongoose.Schema({
     type:String,
     required:true,
   },
+  mobile:{
+    type:Number
+  },bio:{
+    type:Number
+  },
   role:{
     type:String,
+
+  },
+  industry:{
+    type:String
+  },
+  location:{
+    type:String
   },
   skills:{
+    type:String
+  },
+  about:{
     type:String
   },
   profilePic:{

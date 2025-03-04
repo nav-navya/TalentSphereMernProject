@@ -2,27 +2,34 @@ import Project from '../models/projects.js'
 
 export const createProject = async (req, res) => {
   try {
-    console.log("Request Body:", req.body);
-    console.log("User:", req.user);  // Debugging Line
+    // console.log("Request Body:", req.body);
+    // console.log("User:", req.user);  
 
     const { title, description, budget, category } = req.body;
-    const clientId = req.user.userId; // ✅ FIX: Change `req.user.id` to `req.user.userId`
+    const image = req?.file
+    // .path
+    if(!image){
+      return res.status(400).json({message:"image is required"})
+    }
+    
+    
+    const clientId = req.user.userId;  
 
     if (!title || !description || !budget || !category) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const newProject = new Project({ title, description, budget, category, clientId });
+    const newProject = new Project({ title, description, budget, category, clientId,image:image.path });
     await newProject.save();
     res.status(201).json({ message: "Project created successfully", project: newProject });
   } catch (error) {
-    console.log("Error:", error.message);  // Debugging line
+    console.log("Error:", error.message); 
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
 
-// Adding updateProject and deleteProject functions
+
 export const updateProject = async (req, res) => {
   try {
     const { id } = req.params;
@@ -44,3 +51,21 @@ export const deleteProject = async (req, res) => {
     res.status(500).json({ message: "Error occurred while deleting the project" });
   }
 };
+
+
+
+export const getProject = async (req,res) =>{
+  try{
+    const {clientId} = req.params;
+
+    const project = await Project.find({clientId})
+    if(project.length ===0){
+      return res.status(404).send({message:"no project found"})
+    }
+    res.status(200).json(project)
+  }
+  catch(error){
+    res.status(500).json({message:"error occured",error})
+  }
+
+}

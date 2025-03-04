@@ -1,6 +1,6 @@
 import User from '../models/User.model.js'
 
-const userProfile = async(req,res) => {
+export const userProfile = async(req,res) => {
 
   try{
     const userId = req.user.userId;
@@ -15,4 +15,24 @@ const userProfile = async(req,res) => {
   }
 }
 
-export default userProfile;
+export const userDetails = async(req,res) => {
+  try{
+    const {industry,location,bio,mobile,about} = req.body;
+    const userId = req.user.userId
+
+    //find usconst er & update details
+    const updatedUser = await User.findByIdAndUpdate(userId,{
+      industry,location,bio,mobile,about}, { new: true, runValidators: true })
+
+      if(!updatedUser)
+        return res.status(404).json({message:"user not found.."})
+
+      res.json(updatedUser);
+
+  }catch(error){
+    console.error("error updating profile")
+    res.status(404).json({message:"server error"})
+  }
+}
+
+

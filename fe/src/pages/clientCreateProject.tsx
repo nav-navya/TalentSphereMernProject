@@ -1,6 +1,7 @@
 
 import axios from "axios";
 import { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 interface FormData {
   title: string;
@@ -8,15 +9,19 @@ interface FormData {
   budget: number | string;
   skills: string;
   category: string;
+  image:string;
+  
 }
 
 const CreateProject = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     title: "",
     description: "",
     budget: "",
     skills: "",
-    category: ""
+    category: "",
+    image:""
   });
 
   const [loading, setLoading] = useState(false);
@@ -36,7 +41,7 @@ const CreateProject = () => {
     setError(null);
 
     const token = localStorage.getItem("token")
-    console.log(token)
+    
 
     if (!token) {
       console.error("No token found in localStorage!");
@@ -54,7 +59,9 @@ const CreateProject = () => {
       );
       console.log("full response",response)
       alert("Project created successfully");
-      console.log(response.data);
+      // console.log(response.data);
+      navigate("/home")
+
     } catch (error) {
       console.error("Error creating Project", error);
       setError("Failed to create project. Please try again.");
@@ -64,65 +71,110 @@ const CreateProject = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-bold">Create a new Project</h2>
-      {error && <div className="text-red-500">{error}</div>}
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="title"
-          placeholder="Project Title"
-          value={formData.title}
-          onChange={handleChange}
-          className="w-1/2 p-2 border rounded"
-          required
-        /><br/>
+
+    <div className="min-h-screen flex items-center justify-center bg-blue-950">
+  <div className="bg-white p-8 w-full max-w-2xl rounded-lg shadow-xl">
+    <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Create a New Project</h2>
+
+    {error && <div className="text-red-600 text-center mb-4">{error}</div>}
+
+    <form className="space-y-6" onSubmit={handleSubmit}>
+      {/* Title and Budget Fields */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label htmlFor="title" className="block text-sm font-medium text-gray-500 mb-2">Project Title</label>
+          <input
+            id="title"
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            className="w-full p-3   bg-gray-200 "
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="budget" className="block text-sm font-medium text-gray-500 mb-2">Budget</label>
+          <input
+            id="budget"
+            type="number"
+            name="budget"
+            value={formData.budget}
+            onChange={handleChange}
+            className="w-full p-3  bg-gray-200"
+            required
+          />
+        </div>
+      </div>
+
+      {/* Description Field */}
+      <div>
+        <label htmlFor="description" className="block text-sm font-medium text-gray-500 mb-2">Project Description</label>
         <textarea
+          id="description"
           name="description"
-          placeholder="Project Description"
           value={formData.description}
           onChange={handleChange}
-          className="w-1/2 p-2 border rounded min-h-[100px]"
+          className="w-full p-3  bg-gray-200 "
+          rows={4}
           required
-        ></textarea>
-        <br/>
-        <input
-          type="number"
-          name="budget"
-          placeholder="Budget (USD)"
-          value={formData.budget}
-          onChange={handleChange}
-          className="w-1/2 p-2 border rounded"
-          required
-        /><br/>
-        <input
-          type="text"
-          name="category"
-          placeholder="Category"
-          value={formData.category}
-          onChange={handleChange}
-          className="w-1/2 p-2 border rounded"
-          required
-        /><br/>
-        <input
-          type="text"
-          name="skills"
-          placeholder="Skills"
-          value={formData.skills}
-          onChange={handleChange}
-          className="w-1/2 p-2 border rounded"
-          required
-        /><br/>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white p-2 rounded w-16 hover:bg-blue-600"
-          disabled={loading}
-        >
-          {loading ? "Creating..." : "Add Project"}
-        </button>
-      </form>
-    </div>
+        ></textarea >
+      </div>
+
+      {/* Category and Skills Fields */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label htmlFor="category" className="block text-sm font-medium text-gray-500 mb-2">Category</label>
+          <input
+            id="category"
+            type="text"
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            className="w-full p-3  bg-gray-200"
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="skills" className="block text-sm font-medium text-gray-500 mb-2">Skills</label>
+          <input
+            id="skills"
+            type="text"
+            name="skills"
+            value={formData.skills}
+            onChange={handleChange}
+            className="w-full p-3  bg-gray-200"
+            required
+          />
+        </div>
+      </div>
+
+      <label htmlFor="image" className="block text-sm font-medium text-gray-500 mb-2">Project Image</label>
+            <input
+              id="image"
+              type="file"
+              name="image"
+             
+              className="w-full p-3 bg-gray-200"
+              accept="image/*" // Accept only image files
+            />
+
+      {/* Submit Button */}
+      <button
+        type="submit"
+        className="w-full p-3 bg-blue-900 text-white hover:bg-blue-800 "
+        disabled={loading}
+      >
+        {loading ? "Creating..." : "Add Project"}
+      </button>
+    </form>
+  </div>
+</div>
+
   );
 };
 
 export default CreateProject;
+

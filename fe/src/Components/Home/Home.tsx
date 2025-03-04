@@ -5,8 +5,7 @@ import MainSection from './MainSection'
 
 const Home = () => {
   return (
-    <div>
-      <Navbar/>
+    <div className='bg-[#181b41]'>
       <MainSection/>
     </div>
   )

@@ -22,5 +22,6 @@ app.get("/",(req,res)=>{
 app.use(`/api/auth`,authRoutes)
 app.use('/api/project',projectRoute)
 app.use('/api/userProfile',userProfileRoute)
+app.use('api/profileUpdate',userProfileRoute)
 
 export default app;
