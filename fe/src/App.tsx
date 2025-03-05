@@ -1,22 +1,27 @@
 
 // import './App.css'
-import MainSection from './Components/Home/MainSection'
-import Navbar from './Components/Home/Navbar'
+import MainSection from './Components/Client/Home/MainSection'
+import Navbar from './Components/Client/Home/Navbar'
 import Login from './Components/Login'
 import Register from './Components/Register'
 import {Route,Routes} from 'react-router-dom'
-import CreateProject from './pages/ClientCreateProject'
-import Home from './Components/Home/Home'
-import Profile from './pages/ViewProfile'
-import AddmoreDetails from './pages/AddmoreDetails'
+import CreateProject from './pages/Client/ClientCreateProject'
+import Home from './Components/Client/Home/Home'
+import Profile from './pages/Client/ViewProfile'
+import AddmoreDetails from './pages/Client/AddmoreDetails'
 import Layout from './layouts/layout'
-import ClientProjects from './pages/ClientViewProjects'
+import ClientProjects from './pages/Client/ClientViewProjects'
+import JobCategory from './Components/Freelancer/JobCategory'
+
+
+
+import Main from './pages/Freelancers/Home/Main'
 
 function App() {
  
   return (
     <>
-     
+     {/* Client */}
     <Routes>
       <Route path='/Register' element= {<Register/>}/>
       <Route path='/' element= {<Login/>}/>
@@ -26,17 +31,16 @@ function App() {
         <Route path='/home' element={<Home/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path="/client/:clientId" element={<ClientProjects />} />
-        
-      </Route>
+       </Route>
     </Routes> 
 
-    
-
-    
+{/*     
+<Main/>
+<JobCategory/>
+     */}
     
    
 
-      
      
     </>
   )

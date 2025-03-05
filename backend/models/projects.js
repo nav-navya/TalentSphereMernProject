@@ -18,6 +18,7 @@ const projectSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
+    enum:["Web development","Graphic design","Content writing","Logo design","AI services","Digital marketing","Music","Art","others"]
   },
   skills:{
     type:String,

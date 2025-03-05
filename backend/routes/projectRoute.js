@@ -6,7 +6,7 @@ import upload from '../middleware/uploadMiddleware.js';
 
 const router = express.Router();
 
-router.post('/create', verifyToken,upload.single("image"), createProject);
+router.post('/create', verifyToken, upload.single("image"),createProject);
 router.put('/update/:id',verifyToken, updateProject); 
 router.delete('/delete/:id',verifyToken, deleteProject); 
 router.get('/client/:clientId',getProject)

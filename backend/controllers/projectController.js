@@ -2,8 +2,7 @@ import Project from '../models/projects.js'
 
 export const createProject = async (req, res) => {
   try {
-    // console.log("Request Body:", req.body);
-    // console.log("User:", req.user);  
+     
 
     const { title, description, budget, category } = req.body;
     const image = req?.file
