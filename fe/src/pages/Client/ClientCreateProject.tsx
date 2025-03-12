@@ -9,7 +9,7 @@ interface FormData {
   budget: number | string;
   skills: string;
   category: string;
-  image: string | File;
+  images: string | File;
 }
 
 // Predefined categories
@@ -26,7 +26,7 @@ const CreateProject = () => {
     budget: "",
     skills: "",
     category: categories[0], // Default to the first category
-    image: "",
+    images: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -38,10 +38,10 @@ const CreateProject = () => {
   ) => {
     const { name, value, files } = e.target as HTMLInputElement;
   
-    if (name === "image" && files && files.length > 0) {
+    if (name === "images" && files && files.length > 0) {
       setFormData((prev) => ({
         ...prev,
-        image: files[0],  // Ensure only the first file is taken
+        images: files[0],  // Ensure only the first file is taken
       }));
     } else {
       setFormData((prev) => ({
@@ -71,9 +71,13 @@ const CreateProject = () => {
     projectData.append("budget", formData.budget.toString());
     projectData.append("skills", formData.skills);
     projectData.append("category", formData.category);
-    if (formData.image instanceof File) {
-      projectData.append("image", formData.image); // Appending the image file
+    if (formData.images instanceof File) {
+      projectData.append("images", formData.images); // Appending the image file
     }
+    // console.log("form data",formData)
+    // console.log("form data",projectData)
+    console.log("project data",[...projectData.entries()]); // Converts FormData to an array and logs it
+
 
     try {
       const response = await axios.post(
@@ -202,7 +206,7 @@ const CreateProject = () => {
             <input
               id="image"
               type="file"
-              name="image"
+              name="images"
               className="w-full p-3 bg-gray-200"
               accept="image/*"
               onChange={handleChange}

@@ -36,10 +36,11 @@ const Login = () => {
       console.log(response.data.token)
 
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.user.id);
 
       setMessage("Login Successfull")
       alert("login successfull")
-      setTimeout(()=>{navigate('/home')})
+      setTimeout(()=>{navigate('/landing')})
 
     }catch(err:any){
       setError(err.response?.data?.message || "Invalid credentials");

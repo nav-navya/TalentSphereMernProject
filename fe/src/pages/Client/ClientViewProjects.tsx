@@ -14,7 +14,7 @@ interface Project {
 
 const ClientProjects = () => {
   const { clientId } = useParams();
-  const [projects, setProjects] = useState<Project[]>([]); // ✅ Correct Type
+  const [projects, setProjects] = useState<Project[]>([]); 
 
   useEffect(() => {
     const fetchProjects = async () => {

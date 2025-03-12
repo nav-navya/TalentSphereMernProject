@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, Outlet } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,21 +46,23 @@ const Navbar = () => {
             isOpen ? 'block' : 'hidden'
           } lg:flex space-x-6 text-white`}
         >
-          <a href="#" className="hover:text-gray-400">
-            Home
-          </a>
-          <a href="#" className="hover:text-gray-400">
-            About
-          </a>
-          <a href="#" className="hover:text-gray-400">
-            Services
-          </a>
-          <a href="#" className="hover:text-gray-400">
-            Contact
-          </a>
+          <Link to='/fHome'>
+          Home</Link>
+           
+          
+          <Link to='about'> About</Link>
+           
+         
+          <Link  to='fviewProjects' className="hover:text-gray-400">
+            View Projects
+            </Link>
+          <Link to='/profile' className="hover:text-gray-400">
+            Profile
+          </Link>
         </div>
       </div>
     </nav>
+    
   );
 };
 

@@ -17,12 +17,12 @@ export const userProfile = async(req,res) => {
 
 export const userDetails = async(req,res) => {
   try{
-    const {industry,location,bio,mobile,about} = req.body;
+    const {industry,location,bio,mobile,about,profilePic} = req.body;
     const userId = req.user.userId
 
     //find usconst er & update details
     const updatedUser = await User.findByIdAndUpdate(userId,{
-      industry,location,bio,mobile,about}, { new: true, runValidators: true })
+      industry,location,bio,mobile,about,profilePic}, { new: true, runValidators: true })
 
       if(!updatedUser)
         return res.status(404).json({message:"user not found.."})

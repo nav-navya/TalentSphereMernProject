@@ -1,30 +1,10 @@
-// import React from 'react'
-
-
-
-// const AddmoreDetails = () => {
-//   return (
-//     <div>
-//       <h2>Add your Bio:</h2>
-//       <input type='text' className='border-gray-900' placeholder='bio'/><br></br>
-//       <h2>Enter your Phone Number</h2>
-//       <input type='text' className='border-gray-900' placeholder=' phone'/><br></br>
-//       <h2>More About You</h2>
-//       <input type='text' className='border-gray-900' placeholder='About You'/><br></br>
-//     </div>
-//   )
-// }
-
-// export default AddmoreDetails;
-
-
 
 import React from 'react';
 
 const AddmoreDetails = () => {
   return (
     <div>
-      <h2>Add Your Details</h2>
+      <h2 className='text-center text-2xl'>Add Your Details</h2>
       <form className="space-y-4">
         <div>
           <label htmlFor="bio" className="block text-sm font-medium text-gray-700">Add your Bio:</label>

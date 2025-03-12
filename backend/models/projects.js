@@ -1,51 +1,67 @@
+import mongoose from "mongoose";
 
-import mongoose from 'mongoose';
-
-const projectSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  budget: {
-    type: Number,
-    required: true, // Fixed from "required": "true" to true
-  },
-  category: {
-    type: String,
-    required: true,
-    enum:["Web development","Graphic design","Content writing","Logo design","AI services","Digital marketing","Music","Art","others"]
-  },
-  skills:{
-    type:String,
-    
-  },
-  image:{
-    type:String,
-    
-  },
-  clientId: {  // Fixed the typo here (cliendId -> clientId)
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  bids: [
-    {
-      freelancerId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-      bidAmount: Number,
-      proposal: String,
-      status: { type: String, enum: ["pending", "accepted", "rejected"], default: "pending" },
+const projectSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
     },
-  ],
-},
-{ timestamps: true });
+    description: {
+      type: String,
+      required: true,
+    },
+    budget: {
+      type: Number,
+      required: true,
+    },
+    category: {
+      type: String,
+      required: true,
+      enum: [
+        "Web development",
+        "Graphic design",
+        "Content writing",
+        "Logo design",
+        "AI services",
+        "Digital marketing",
+        "Music",
+        "Art",
+        "others",
+      ],
+    },
+    skills: {
+      type: [String], // Changed from String to an array
+    },
+    images: {
+      type: String, // Changed to an array for multiple images
+    },
+    clientId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["open", "in progress", "completed"],
+      default: "open",
+    },
+    comments: [
+      {
+        userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, 
+        text: { type: String, required: true }, // Added required
+        bidAmount: { type: Number, required: true },
+        duration: { type: String, required: true }, // Added duration
+        status: {
+          type: String,
+          enum: ["pending", "accepted", "rejected"],
+          default: "pending",
+        },
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
 const Project = mongoose.model("Project", projectSchema);
 export default Project;
