@@ -78,14 +78,14 @@ export const FreelancerViewProject = () => {
                   </div>
 
                   {/* View Bids Button */}
-                  <Link to={`/viewBids/${project._id}`}>
+                  
                     <div className="flex items-center space-x-2 group">
                       <button className="text-purple-400 group-hover:text-purple-300 transition-colors">
                         <MessageCircle className="h-5 w-5" />
                       </button>
                       <span className="text-gray-400 group-hover:text-gray-300">View Bids</span>
                     </div>
-                  </Link>
+                 
                 </div>
               </div>
             ))}

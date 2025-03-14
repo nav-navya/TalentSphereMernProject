@@ -1,6 +1,6 @@
 
 import express from 'express';
-import { createProject, updateProject, deleteProject,getProject,getProjectCategory, freelancergetProject, likeProject, addBid, getBid } from '../controllers/projectController.js';
+import { createProject, updateProject, deleteProject,getProject,getProjectCategory, freelancergetProject, likeProject,  } from '../controllers/projectController.js';
 import { verifyToken } from '../middleware/authMiddleware.js'
 import upload from '../middleware/uploadMiddleware.js';
 import Project from '../models/projects.js';
@@ -16,8 +16,8 @@ router.get('/client/:clientId',getProject)
 router.get('/category',getProjectCategory)
 router.get('/getprojects',freelancergetProject)
 router.patch("/like/:projectId",verifyToken,likeProject)
-router.post('/addBid/:projectId',verifyToken,addBid)
-router.get('/comments/:projectId',getBid)
+// router.post('/addBid/:projectId',verifyToken,addBid)
+// router.get('/comments/:projectId',getBid)
 
 
 router.get("/jobs", async (req, res) => {

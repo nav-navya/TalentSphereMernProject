@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 // Define TypeScript interfaces
 interface Project {
@@ -113,12 +114,13 @@ const JobCategory: React.FC = () => {
                         <p className="text-indigo-200">{project.description}</p>
                       </div>
                       <div className="mt-4 md:mt-0 md:ml-6 flex-shrink-0">
-                        <button 
+                       <Link to={`/addBid/${project._id}`}> <button 
                           onClick={() => handleAddBid(project._id)}
                           className="px-4 py-2 bg-gradient-to-r from-violet-500 to-indigo-600 text-white rounded-lg font-medium hover:from-violet-600 hover:to-indigo-700 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-violet-400 focus:ring-opacity-50"
                         >
                           Add Bid
                         </button>
+                        </Link>
                       </div>
                     </div>
                   ))

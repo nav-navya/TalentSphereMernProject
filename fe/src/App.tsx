@@ -16,8 +16,9 @@ import Main from './pages/Freelancers/Home/Main'
 import { FreelancerViewProject } from './pages/Freelancers/ViewProjects'
 import FLayout from './layouts/FreelanceLayout'
 import Landing from './Components/Landing'
-import BidsList from './pages/Freelancers/BidsList'
 import About from './pages/Freelancers/About'
+import BidFormWrapper from './pages/Freelancers/BidFormWrapper'
+
 
 
 
@@ -51,8 +52,11 @@ function App() {
          <Route path='/' element={<FLayout/>}>
             <Route path='/fHome' element={<Main/>}/>
             <Route path='/fviewProjects' element={<FreelancerViewProject/>}/>
-            <Route path='/viewBids/:projectId' element={<BidsList/>}/>
+            
             <Route path='/about' element={<About/>}/>
+            <Route path="/addBid/:projectId" element={<BidFormWrapper />} />
+
+           
            
         
          </Route>
