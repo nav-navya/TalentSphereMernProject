@@ -18,10 +18,8 @@ import FLayout from './layouts/FreelanceLayout'
 import Landing from './Components/Landing'
 import About from './pages/Freelancers/About'
 import BidFormWrapper from './pages/Freelancers/BidFormWrapper'
-
-
-
-
+import ChatWrapper from './Components/ChatWrapper'
+import ProfileB from './Components/Profilebtn'
 
 
 
@@ -35,6 +33,7 @@ function App() {
       <Route path='/' element= {<Login/>}/>
       <Route path='/landing' element={<Landing/>}/>
       <Route path='/profile' element={<Profile/>}/>
+     
 
             {/* --------client------- */}
       <Route path='/' element={<Layout/>}>
@@ -44,6 +43,7 @@ function App() {
        
         <Route path='/addmoreDetails' element={<AddmoreDetails/>}/>
         <Route path="/client/:clientId" element={<ClientProjects />} />
+        
        </Route>
 
 
@@ -57,9 +57,15 @@ function App() {
             <Route path="/addBid/:projectId" element={<BidFormWrapper />} />
 
            
-           
-        
+            {/* <Route path="/chat/:userId/:freelancerId" element={<Chat />} />
+         */}
+
+          <Route path="/chat/:receiverId" element={<ChatWrapper />} />
+          
+
          </Route>
+
+         
          
 
     </Routes>  
@@ -67,7 +73,7 @@ function App() {
 
     
     
-
+             
    
     </>
   )

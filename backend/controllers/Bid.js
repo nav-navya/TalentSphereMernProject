@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Bid from "../models/Bid.js";
 import Project from "../models/projects.js";
 
@@ -24,16 +25,69 @@ export const placeBid = async (req,res) =>
   }
 }
 
-export const getBid = async (req,res)=>{
-  try{
-    const {projectId} = req.params;
-    const bids = await Bid.find({projectId}).populate("freelancerId", "name email");
-    res.status(201).json({success:true,bids})
 
 
-  }catch(error){
-    res.status(500).json({message:"error occured..",error})
 
+export const getBid = async (req, res) => {
+  try {
+    const { projectId } = req.params;
+    console.log("Fetching bids for projectId:", projectId);
+
+    const bids = await Bid.find({ projectId }).populate("freelancerId", "name email");
+
+    if (!bids.length) {
+      return res.status(404).json({ success: false, message: "No bids found for this project." });
+    }
+
+    res.status(200).json({ success: true,message:"what", bids });
+  } catch (error) {
+    console.error("Error fetching bids:", error);
+    res.status(500).json({ success: false, message: "Error occurred while fetching bids.", error });
   }
+};
 
-}
+
+
+export const acceptBid = async (req, res) => {
+  try {
+    const { bidId } = req.params;
+
+    // Find the bid to accept
+    const bid = await Bid.findById(bidId);
+    if (!bid) {
+      return res.status(404).json({ message: "Bid not found" });
+    }
+
+    // Mark the bid as accepted
+    bid.status = "accepted";
+    await bid.save();
+
+    // Delete all other bids for the same project
+    await Bid.deleteMany({ projectId: bid.projectId, _id: { $ne: bidId } });
+
+    res.status(200).json({ message: "Bid accepted and other bids deleted", bid });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
+
+
+export const deleteBid = async (req, res) => {
+  try {
+    const bidId = req.params.bidId.trim(); 
+
+    if (!mongoose.Types.ObjectId.isValid(bidId)) {
+      return res.status(400).json({ message: "Invalid bid ID" });
+    }
+
+    const bid = await Bid.findByIdAndDelete(bidId);
+    if (!bid) {
+      return res.status(404).json({ message: "Bid not found" });
+    }
+
+    res.status(200).json({ message: "Bid deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
+};

@@ -7,6 +7,8 @@ import userProfileRoute from './routes/userProfileRoute.js'
 // import conversationRoutes from './routes/conversation.routes.js'
 // import messageRoute from './routes/message.route.js'
 import BidRoute from './routes/Bid.Route.js'
+// import chatRoute from './routes/message.route.js'
+import chatRoutes from './routes/chatRoutes.js'
 
 
 
@@ -28,10 +30,10 @@ app.use(`/api/auth`,authRoutes)
 app.use('/api/project',projectRoute)
 app.use('/api/userProfile',userProfileRoute)
 app.use('/api/profileUpdate',userProfileRoute)
-// app.use('/api/conversations',conversationRoutes)
-// app.use('/api/conversations',conversationRoutes)
-// app.use('/api/messages',messageRoute)
+
 app.use('/api/bids',BidRoute);
+// app.use("/api/chat", chatRoute)
+app.use("/api/chat", chatRoutes);
 
 
 

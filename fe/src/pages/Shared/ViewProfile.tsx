@@ -94,7 +94,8 @@ const Profile = () => {
               <div className="pt-20 px-6 pb-8">
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold text-white mb-1">{user.name}</h3>
-                  <p className="text-gray-400">Freelance Professional</p>
+                  
+                  
                 </div>
                 
                 {/* User Info Cards */}
