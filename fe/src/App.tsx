@@ -20,6 +20,9 @@ import About from './pages/Freelancers/About'
 import BidFormWrapper from './pages/Freelancers/BidFormWrapper'
 import ChatWrapper from './Components/ChatWrapper'
 import ProfileB from './Components/Profilebtn'
+import ProjectDetails from './Components/ProjectDetails'
+import AdminRoute from './Components/AdminRoute'
+import AdminDashboard from './Components/AdminDashboard'
 
 
 
@@ -61,11 +64,15 @@ function App() {
          */}
 
           <Route path="/chat/:receiverId" element={<ChatWrapper />} />
+          <Route path="/project/:id" element={<ProjectDetails />} />
+
           
 
          </Route>
 
-         
+         <Route element={<AdminRoute />}>
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        </Route>
          
 
     </Routes>  

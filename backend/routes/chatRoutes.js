@@ -97,54 +97,27 @@ import express from "express";
 import Message from "../models/Message.js";
 import User from "../models/User.model.js";
 
+
+
+
+
+
+
+import { sendMessage } from "../controllers/chatController.js";
+
 const router = express.Router();
 
-// ✅ Send message via API
-router.post("/send", async (req, res) => {
-  const { senderId, receiverId, message } = req.body;
-
-  if (!senderId || !receiverId || !message) {
-    return res.status(400).json({ error: "All fields are required" });
-  }
-
-  try {
-    const newMessage = new Message({ senderId, receiverId, message });
-    console.log("new message", newMessage)
-    await newMessage.save();
-    res.status(201).json(newMessage);
-  } catch (error) {
-    res.status(500).json({ error: "Error sending message" });
-  }
-});
-
-// ✅ Fetch chat history with user details
-// router.get("/:senderId/:receiverId", async (req, res) => {
-//   const { senderId, receiverId } = req.params;
-
-//   try {
-//     const messages = await Message.find({
-//       $or: [
-//         { senderId, receiverId },
-//         { senderId: receiverId, receiverId: senderId },
-//       ],
-//     })
-//       .populate("senderId", "name profilePicture role") // ✅ Include sender details
-//       .populate("receiverId", "name profilePicture role") // ✅ Include receiver details
-//       .sort({ createdAt: 1 });
-
-//     res.status(200).json(messages);
-//   } catch (error) {
-//     res.status(500).json({ error: "Error retrieving messages" });
-//   }
-// });
+router.post("/:projectId/send", sendMessage);
 
 
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 router.get("/:senderId/:receiverId", async (req, res) => {
-  console.log("Request Params:", req.params); // Debugging line
+  console.log("Request Params:", req.params); 
 
   const { senderId, receiverId } = req.params;
-  console.log("Extracted senderId:", senderId, "receiverId:", receiverId); // Debugging line
+  console.log("Extracted senderId:", senderId, "receiverId:", receiverId); 
 
   try {
     const messages = await Message.find({

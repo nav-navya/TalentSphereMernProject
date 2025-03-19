@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Bid from "../models/Bid.js";
 import Project from "../models/projects.js";
+import Chat from "../models/Chat.js"; 
 
 export const placeBid = async (req,res) =>
 {
@@ -48,28 +49,81 @@ export const getBid = async (req, res) => {
 
 
 
+
+
+// export const acceptBid = async (req, res) => {
+//   try {
+//     const { bidId } = req.params;
+//     const bid = await Bid.findById(bidId).populate("projectId freelancerId");
+
+//     if (!bid) return res.status(404).json({ message: "Bid not found" });
+
+//     // Update bid status to 'accepted'
+//     bid.status = "accepted";
+//     await bid.save();
+
+//     // Delete all other bids for this project
+//     await Bid.deleteMany({ projectId: bid.projectId, _id: { $ne: bidId } });
+
+//     // Check if a chat already exists
+//     const existingChat = await Chat.findOne({ projectId: bid.projectId });
+
+//     if (!existingChat) {
+//       // Create a new chat
+//       const newChat = new Chat({
+//         projectId: bid.projectId,
+//         clientId: bid.projectId.clientId,
+//         freelancerId: bid.freelancerId._id,
+//         messages: [],
+//       });
+//       await newChat.save();
+//     }
+
+//     res.status(200).json({ message: "Bid accepted and chat created!" });
+//   } catch (error) {
+//     res.status(500).json({ message: "Server error", error });
+//   }
+// };
+
+
+
+
 export const acceptBid = async (req, res) => {
   try {
     const { bidId } = req.params;
 
-    // Find the bid to accept
+    // Find the bid
     const bid = await Bid.findById(bidId);
-    if (!bid) {
-      return res.status(404).json({ message: "Bid not found" });
-    }
+    if (!bid) return res.status(404).json({ message: "Bid not found" });
 
-    // Mark the bid as accepted
+    // Mark this bid as accepted
     bid.status = "accepted";
     await bid.save();
 
     // Delete all other bids for the same project
     await Bid.deleteMany({ projectId: bid.projectId, _id: { $ne: bidId } });
 
-    res.status(200).json({ message: "Bid accepted and other bids deleted", bid });
+    // Get project details
+    const project = await Project.findById(bid.projectId);
+    if (!project) return res.status(404).json({ message: "Project not found" });
+
+    // Create a chat session
+    const chatExists = await Chat.findOne({ projectId: bid.projectId });
+    if (!chatExists) {
+      await Chat.create({
+        projectId: bid.projectId,
+        clientId: project.clientId, // Assuming project has clientId
+        freelancerId: bid.freelancerId,
+        messages: [],
+      });
+    }
+
+    res.status(200).json({ message: "Bid accepted, other bids deleted, and chat started!" });
   } catch (error) {
-    res.status(500).json({ message: "Internal Server Error", error: error.message });
+    res.status(500).json({ message: "Server error", error });
   }
 };
+
 
 
 

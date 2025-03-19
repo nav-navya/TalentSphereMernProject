@@ -9,7 +9,7 @@ interface Params extends Record<string, string | undefined> {
 const ChatWrapper = () => {
   const { receiverId } = useParams<Params>(); // Get receiverId from URL and specify its type
 
-  return <Chat receiverId={receiverId!} />; // Pass receiverId to the Chat component
+  return <Chat receiverId={receiverId!} projectId={'67ce970beda2a73fd13d1751'}  />; // Pass receiverId to the Chat component
 };
 
 export default ChatWrapper;

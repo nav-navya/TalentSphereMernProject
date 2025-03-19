@@ -53,6 +53,15 @@ export const FreelancerViewProject = () => {
                 <div className="p-6 w-full">
                   <h3 className="text-xl font-semibold text-purple-300 mb-2">{project.title}</h3>
                   <p className="text-gray-300 mt-3">{project.description}</p>
+
+
+                  <Link to={`/project/${project._id}`}>
+                  <button className="mt-4 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+                  View Details
+                  </button>
+                  </Link>
+
+
                   <p className="mt-4 font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 text-lg">Budget: ${project.budget}</p>
 
                   <div className="relative mt-6 mb-4">
