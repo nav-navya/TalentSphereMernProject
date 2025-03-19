@@ -59,6 +59,9 @@ const Navbar = () => {
           <Link to='/profile' className="hover:text-gray-400">
             Profile
           </Link>
+          <Link to='/chat' className="hover:text-gray-400">
+            chat
+          </Link>
         </div>
       </div>
     </nav>

@@ -18,24 +18,44 @@ import FLayout from './layouts/FreelanceLayout'
 import Landing from './Components/Landing'
 import About from './pages/Freelancers/About'
 import BidFormWrapper from './pages/Freelancers/BidFormWrapper'
-import ChatWrapper from './Components/ChatWrapper'
-import ProfileB from './Components/Profilebtn'
 import ProjectDetails from './Components/ProjectDetails'
 import AdminRoute from './Components/AdminRoute'
 import AdminDashboard from './Components/AdminDashboard'
+import { io } from 'socket.io-client'
+import { useEffect } from 'react'
+import Chat from './pages/Chat'
+
+const socket = io("http://localhost:5003",{
+  transports:["websocket"],
+  withCredentials:true,
+});
 
 
 
 function App() {
+
+  useEffect( ()=>{
+    socket.on("connected",()=>{
+      console.log("Connected to Websocket:",socket.id);
+    })
+
+    socket.on("disconnected", ()=>{
+      console.log("user disconnected",socket.id);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  },[])
  
   return (
     <>
-     
     <Routes>
       <Route path='/Register' element= {<Register/>}/>
       <Route path='/' element= {<Login/>}/>
       <Route path='/landing' element={<Landing/>}/>
       <Route path='/profile' element={<Profile/>}/>
+      <Route path= '/chat' element ={<Chat/>}/>
      
 
             {/* --------client------- */}
@@ -59,11 +79,8 @@ function App() {
             <Route path='/about' element={<About/>}/>
             <Route path="/addBid/:projectId" element={<BidFormWrapper />} />
 
-           
-            {/* <Route path="/chat/:userId/:freelancerId" element={<Chat />} />
-         */}
 
-          <Route path="/chat/:receiverId" element={<ChatWrapper />} />
+          
           <Route path="/project/:id" element={<ProjectDetails />} />
 
           

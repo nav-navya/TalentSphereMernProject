@@ -147,11 +147,11 @@ const ProjectDetails = () => {
 
         <div className="mt-6">
           {project.clientId && ( // Ensure clientId is available before showing the button
-            <Link to={`/chat/${project.clientId}`}>
+            // <Link to={`/chat/${project.clientId}`}>
               <button className="text-xl font-bold text-purple-400 bg-white">
                 Chat with Client
               </button>
-            </Link>
+            // </Link>
           )}
         </div>
       </div>
