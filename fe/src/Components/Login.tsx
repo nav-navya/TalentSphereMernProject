@@ -3,6 +3,9 @@ import axios from "axios";
 import loginImage from '../../public/login_register.jpg'
 import { Link, useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 interface FormData {
   email: string;
@@ -33,13 +36,23 @@ const Login = () => {
     try{
       const response = await axios.post("http://localhost:5003/api/auth/login", formData);
 
+      const { token, user } = response.data;
+      
+
       console.log(response.data.token)
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.user.id);
 
+      
+
       setMessage("Login Successfull")
-      alert("login successfull")
+      toast.success("login successfull")
+
+      if(user.role ==='admin'){
+        navigate("/admin")
+      }
+      else
       setTimeout(()=>{navigate('/landing')})
 
     }catch(err:any){

@@ -2,6 +2,9 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 interface FormData {
   title: string;
@@ -91,7 +94,7 @@ const CreateProject = () => {
         }
       ); 
       console.log("Full response", response);
-      alert("Project created successfully");
+      toast.info("Project created successfully");
       navigate("/home");
     } catch (error) {
       console.error("Error creating Project", error);

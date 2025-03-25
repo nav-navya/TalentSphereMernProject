@@ -122,9 +122,6 @@
 // export default BidList;
 
 
-
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -150,6 +147,7 @@ const BidList: React.FC<BidListProps> = ({ projectId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [role, setRole] = useState<string | null>(null);
+  const [acceptedBidId, setAcceptedBidId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchBids = async () => {
@@ -173,14 +171,14 @@ const BidList: React.FC<BidListProps> = ({ projectId }) => {
   }, [projectId]);
 
   const handleAcceptBid = async (bidId: string) => {
+    console.log("Accepting bid with id", bidId);
     try {
       const token = localStorage.getItem("token");
       await axios.patch(`http://localhost:5003/api/bids/accept/${bidId}`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      // Remove all other bids and keep only the accepted one
-      setBids(bids.filter((bid) => bid._id === bidId));
+      setAcceptedBidId(bidId);
       alert("Bid accepted successfully!");
     } catch (error) {
       console.error("Failed to accept bid:", error);
@@ -195,7 +193,6 @@ const BidList: React.FC<BidListProps> = ({ projectId }) => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      // Remove the declined bid from the state
       setBids(bids.filter((bid) => bid._id !== bidId));
       alert("Bid declined successfully!");
     } catch (error) {
@@ -211,7 +208,9 @@ const BidList: React.FC<BidListProps> = ({ projectId }) => {
     <div className="bg-white rounded-xl shadow-lg overflow-hidden">
       <div className="bg-gradient-to-r from-violet-500 to-gray-600 px-6 py-4">
         <h2 className="text-xl font-bold text-white">Project Bids</h2>
-        <p className="text-blue-100 text-sm">{bids.length} {bids.length === 1 ? 'proposal' : 'proposals'} received</p>
+        <p className="text-blue-100 text-sm">
+          {bids.length} {bids.length === 1 ? "proposal" : "proposals"} received
+        </p>
       </div>
 
       {bids.length === 0 ? (
@@ -221,7 +220,12 @@ const BidList: React.FC<BidListProps> = ({ projectId }) => {
       ) : (
         <div className="divide-y divide-gray-100">
           {bids.map((bid) => (
-            <div key={bid._id} className="p-5 hover:bg-gray-50 transition-colors duration-150">
+            <div
+              key={bid._id}
+              className={`p-5 hover:bg-gray-50 transition-colors duration-150 ${
+                acceptedBidId === bid._id ? "bg-green-100 border-l-4 border-green-500" : ""
+              }`}
+            >
               <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                 <div className="flex-grow">
                   <div className="flex items-center mb-2">
@@ -249,20 +253,33 @@ const BidList: React.FC<BidListProps> = ({ projectId }) => {
                 {role === "client" && (
                   <div className="flex flex-col sm:flex-row gap-3 mt-4 md:mt-0">
                     <button
-                      className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-150 flex items-center justify-center"
+                      className={`px-4 py-2 rounded-lg font-medium transition-colors duration-150 flex items-center justify-center ${
+                        acceptedBidId ? "bg-gray-300 text-gray-600 cursor-not-allowed" : "bg-green-500 hover:bg-green-600 text-white"
+                      }`}
                       onClick={() => handleAcceptBid(bid._id)}
+                      disabled={!!acceptedBidId}
                     >
                       <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
                       </svg>
                       Accept
                     </button>
                     <button
-                      className="border border-red-500 text-red-500 hover:bg-red-50 px-4 py-2 rounded-lg font-medium transition-colors duration-150 flex items-center justify-center"
+                      className={`border border-red-500 text-red-500 hover:bg-red-50 px-4 py-2 rounded-lg font-medium transition-colors duration-150 flex items-center justify-center ${
+                        acceptedBidId ? "hidden" : ""
+                      }`}
                       onClick={() => handleDeclineBid(bid._id)}
                     >
                       <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                        <path
+                          fillRule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
                       </svg>
                       Decline
                     </button>

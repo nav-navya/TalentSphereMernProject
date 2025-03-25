@@ -8,6 +8,7 @@ interface Project {
   title: string;
   description: string;
   category: string;
+  budget: number;
 }
 
 const JobCategory: React.FC = () => {
@@ -87,7 +88,15 @@ const JobCategory: React.FC = () => {
             <h3 className="text-2xl font-bold text-indigo-300 mb-6 border-b border-gray-700 pb-3">
               {selectedCategory} Projects
             </h3>
-            
+
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedCategory(null)}
+              className="mb-4 px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50"
+            >
+              Close
+            </button>
+
             {loading ? (
               <div className="flex justify-center items-center py-10">
                 <div className="animate-pulse flex space-x-4">
@@ -105,21 +114,25 @@ const JobCategory: React.FC = () => {
               <div className="grid gap-6">
                 {projects.length > 0 ? (
                   projects.map((project) => (
-                    <div 
+                    <div
                       key={project._id}
                       className="border border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow bg-gray-800 hover:bg-gray-750 flex flex-col md:flex-row md:items-center justify-between"
                     >
                       <div className="flex-1">
-                        <h4 className="text-xl font-semibold text-violet-300 mb-2">{project.title}</h4>
+                        <h4 className="text-xl font-semibold text-violet-300 mb-2">
+                          {project.title}
+                        </h4>
                         <p className="text-indigo-200">{project.description}</p>
+                        <p className="text-indigo-200 font-bold">${project.budget}</p>
                       </div>
                       <div className="mt-4 md:mt-0 md:ml-6 flex-shrink-0">
-                       <Link to={`/addBid/${project._id}`}> <button 
-                          onClick={() => handleAddBid(project._id)}
-                          className="px-4 py-2 bg-gradient-to-r from-violet-500 to-indigo-600 text-white rounded-lg font-medium hover:from-violet-600 hover:to-indigo-700 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-violet-400 focus:ring-opacity-50"
-                        >
-                          Add Bid
-                        </button>
+                        <Link to={`/addBid/${project._id}`}>
+                          <button
+                            onClick={() => handleAddBid(project._id)}
+                            className="px-4 py-2 bg-gradient-to-r from-violet-500 to-indigo-600 text-white rounded-lg font-medium hover:from-violet-600 hover:to-indigo-700 transition-colors shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-violet-400 focus:ring-opacity-50"
+                          >
+                            Add Bid
+                          </button>
                         </Link>
                       </div>
                     </div>
@@ -127,7 +140,9 @@ const JobCategory: React.FC = () => {
                 ) : (
                   <div className="text-center py-10">
                     <p className="text-indigo-300 text-lg">No projects available in this category.</p>
-                    <p className="text-sm text-violet-400 mt-2">Check back later or explore another category.</p>
+                    <p className="text-sm text-violet-400 mt-2">
+                      Check back later or explore another category.
+                    </p>
                   </div>
                 )}
               </div>
@@ -140,3 +155,4 @@ const JobCategory: React.FC = () => {
 };
 
 export default JobCategory;
+

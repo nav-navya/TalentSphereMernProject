@@ -53,6 +53,7 @@ export const FreelancerViewProject = () => {
                 <div className="p-6 w-full">
                   <h3 className="text-xl font-semibold text-purple-300 mb-2">{project.title}</h3>
                   <p className="text-gray-300 mt-3">{project.description}</p>
+                  
 
 
                   <Link to={`/project/${project._id}`}>

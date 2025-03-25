@@ -19,11 +19,18 @@ import Landing from './Components/Landing'
 import About from './pages/Freelancers/About'
 import BidFormWrapper from './pages/Freelancers/BidFormWrapper'
 import ProjectDetails from './Components/ProjectDetails'
-import AdminRoute from './Components/AdminRoute'
-import AdminDashboard from './Components/AdminDashboard'
+// import AdminRoute from './Components/AdminRoute'
+// import AdminDashboard from './Components/AdminLayout'
+import AdminLayout from './Components/AdminLayout'
 import { io } from 'socket.io-client'
 import { useEffect } from 'react'
 import Chat from './pages/Chat'
+import Dashboard from './pages/Dashboard'
+import UsersPage from './pages/UsersPage'
+import ProjectsPage from './pages/ProjectsPage'
+import TransactionsPage from './pages/TransactionsPage'
+import SettingsPage from './pages/SettingsPage'
+import AdminLogout from './Components/AdminLogOut'
 
 const socket = io("http://localhost:5003",{
   transports:["websocket"],
@@ -62,34 +69,33 @@ function App() {
       <Route path='/' element={<Layout/>}>
         <Route path='/createProject' element= {<CreateProject/>}/>
         <Route path='/home' element={<Home/>}/>
-        
-       
         <Route path='/addmoreDetails' element={<AddmoreDetails/>}/>
-        <Route path="/client/:clientId" element={<ClientProjects />} />
-        
-       </Route>
+        <Route path="/client/:clientId" element={<ClientProjects />} />       
+      </Route>
 
 
                    {/* ---------Freelancers --------*/}
         
          <Route path='/' element={<FLayout/>}>
             <Route path='/fHome' element={<Main/>}/>
-            <Route path='/fviewProjects' element={<FreelancerViewProject/>}/>
-            
+            <Route path='/fviewProjects' element={<FreelancerViewProject/>}/> 
             <Route path='/about' element={<About/>}/>
             <Route path="/addBid/:projectId" element={<BidFormWrapper />} />
-
-
-          
-          <Route path="/project/:id" element={<ProjectDetails />} />
-
-          
-
+            <Route path="/project/:id" element={<ProjectDetails />} />
          </Route>
 
-         <Route element={<AdminRoute />}>
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        </Route>
+         
+
+              {/* --------------Admin-------------- */}
+          <Route path="/admin" element={<AdminLayout />} >
+            <Route path='logout' element={<AdminLogout/>}/>
+            <Route index element={<Dashboard />} />
+            <Route path='/admin/users' element={<UsersPage/>}/>
+            <Route path='/admin/projects' element={<ProjectsPage/>}/>
+            <Route path='/admin/transactions' element={<TransactionsPage/>}/>
+            <Route path='/admin/settings' element={<SettingsPage/>}/>
+          </Route>
+        
          
 
     </Routes>  
@@ -104,3 +110,6 @@ function App() {
 }
 
 export default App
+
+
+

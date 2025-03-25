@@ -5,6 +5,7 @@ import app from "./app.js";
 import http from "http";
 import express from 'express'
 import { Server } from "socket.io";
+import razorpay from "./config/razorPay.js";
 
 
 dotenv.config();
@@ -33,6 +34,8 @@ const PORT = process.env.PORT || 5003;
 
 
 connectDB();
+
+console.log("Razorpay instance initialized:", razorpay);
 
 server.listen(PORT, () => {
   console.log(`Server running on PORT ${PORT}`);

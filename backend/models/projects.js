@@ -46,6 +46,11 @@ const projectSchema = new mongoose.Schema(
       enum: ["open", "in progress", "completed"],
       default: "open",
     },
+    acceptedBidId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Bid",
+      default: null, // Store the accepted bid
+    },
     // comments: [
     //   {
     //     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, 
