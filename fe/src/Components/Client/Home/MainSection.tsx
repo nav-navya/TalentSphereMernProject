@@ -34,9 +34,9 @@ const MainSection = () => {
         <Link to='/chat'><button className="w-60 h-16 bg-white border border-gray-400 text-black py-4 px-4 rounded-2xl hover:bg-gray-100">
           Start Messaging
         </button></Link>
-        <button className="w-60 h-16 bg-white border border-gray-400 text-black py-4 px-4 rounded-2xl hover:bg-gray-100">
+        <Link to='/fviewProjects'><button className="w-60 h-16 bg-white border border-gray-400 text-black py-4 px-4 rounded-2xl hover:bg-gray-100">
           Business Recommendations
-        </button>
+        </button></Link>
       </div>
     </div>
   );

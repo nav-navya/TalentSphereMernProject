@@ -51,19 +51,7 @@ const projectSchema = new mongoose.Schema(
       ref: "Bid",
       default: null, // Store the accepted bid
     },
-    // comments: [
-    //   {
-    //     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, 
-    //     text: { type: String, required: true }, // Added required
-    //     bidAmount: { type: Number, required: true },
-    //     duration: { type: String, required: true }, // Added duration
-    //     status: {
-    //       type: String,
-    //       enum: ["pending", "accepted", "rejected"],
-    //       default: "pending",
-    //     },
-    //   },
-    // ],
+    
   },
   { timestamps: true }
 );

@@ -9,6 +9,7 @@ import ChatRoute from './routes/Chat.Route.js'
 import BidRoute from './routes/Bid.Route.js'
 import AdminRoute from './routes/Admin/AdminDataCounts.js'
 import OrderRoute from './routes/orderRoutes.js'
+import paymentRoute from './routes/Admin/paymentRoute.js'
 
 
 
@@ -36,6 +37,7 @@ app.use('/api/chat',ChatRoute)
 app.use('/api/bids',BidRoute);
 app.use('/api/admin',AdminRoute)
 app.use('/api/orders',OrderRoute)
+app.use('/api/payment',paymentRoute);
 
 
 

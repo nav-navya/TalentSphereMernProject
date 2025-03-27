@@ -54,8 +54,8 @@ const JobCategory: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-900 bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen p-6 lg:p-10">
-      <div className="max-w-6xl mx-auto">
+    <div className="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen py-6 lg:py-10">
+      <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-4xl font-bold mb-10 text-center text-violet-300">
           Browse Project Categories
         </h2>
@@ -155,4 +155,3 @@ const JobCategory: React.FC = () => {
 };
 
 export default JobCategory;
-

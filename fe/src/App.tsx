@@ -31,6 +31,7 @@ import ProjectsPage from './pages/ProjectsPage'
 import TransactionsPage from './pages/TransactionsPage'
 import SettingsPage from './pages/SettingsPage'
 import AdminLogout from './Components/AdminLogOut'
+import PaymentsPage from './pages/AdminGetPayment'
 
 const socket = io("http://localhost:5003",{
   transports:["websocket"],
@@ -94,6 +95,8 @@ function App() {
             <Route path='/admin/projects' element={<ProjectsPage/>}/>
             <Route path='/admin/transactions' element={<TransactionsPage/>}/>
             <Route path='/admin/settings' element={<SettingsPage/>}/>
+            <Route path='/admin/getPayment' element={<PaymentsPage/>}/>
+            
           </Route>
         
          

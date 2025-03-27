@@ -43,9 +43,9 @@ const Navbar = () => {
           </div>
 
           <div className="cursor-pointer flex flex-row space-x-10 m-4">
-            <p title="notifications"><Bell /></p>
-            <p title="wishlist"><Heart /></p>
-            <p title="message"><MessageCircleMore /></p>
+            <Link to='/landing'><p title="notifications"><Bell /></p></Link>
+            {/* <p title="wishlist"><Heart /></p>
+            <p title="message"><MessageCircleMore /></p> */}
             <p title="view profile">
               <Link to="/profile"><UserPen /></Link>
             </p>

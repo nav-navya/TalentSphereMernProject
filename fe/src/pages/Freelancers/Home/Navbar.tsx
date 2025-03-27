@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { Bell } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,6 +63,7 @@ const Navbar = () => {
           <Link to='/chat' className="hover:text-gray-400">
             chat
           </Link>
+          <Link to='/landing'><p title="notifications"><Bell /></p></Link>
         </div>
       </div>
     </nav>

@@ -2,6 +2,7 @@ import express from 'express';
  
 import User from '../../models/User.model.js'
 import Project from '../../models/projects.js';
+import Payment from '../../models/paymentModel.js';
 
 
 const router = express.Router();
@@ -12,16 +13,16 @@ router.get("/dashboard", async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();
     const totalProjects = await Project.countDocuments();
-    // const totalTransactions = await Transaction.countDocuments();
-    // const totalEarnings = await Transaction.aggregate([
-    //   { $group: { _id: null, total: { $sum: "$amount" } } },
-    // ]);
+    const totalTransactions = await Payment.countDocuments();
+    const totalEarnings = await Payment.aggregate([
+      { $group: { _id: null, total: { $sum: "$amount" } } },
+    ]);
 
     res.json({
       totalUsers,
       totalProjects,
-      // totalTransactions,
-      // totalEarnings: totalEarnings[0]?.total || 0,
+      totalTransactions,
+      totalEarnings: totalEarnings[0]?.total || 0,
     });
   } catch (error) {
     console.error("Error fetching dashboard data:", error);
